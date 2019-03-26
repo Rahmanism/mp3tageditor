@@ -1,12 +1,6 @@
-
 import wx
-
-
-class MyFrame(wx.Frame):
-    def __init__(self):
-        super().__init__(parent=None, title='MP3 Tag Editor')
-        self.Show()
-
+from mp3panel import Mp3Panel
+from myframe import MyFrame
 
 if __name__ == '__main__':
     app = wx.App()
