@@ -20,7 +20,7 @@ class Mp3Panel(wx.Panel):
         mainSizer.Add(self.listCtrl, 0, wx.ALL | wx.EXPAND, 5)
 
         self.editBtn = wx.Button(self, label='Edit')
-        self.editBtn.Bind(wx.EVT_BUTTON, self.onEdit)
+        self.editBtn.Bind(wx.EVT_BUTTON, self.OnEdit)
         mainSizer.Add(self.editBtn, 0, wx.ALL | wx.CENTER, 5)
 
         self.msgStx = wx.StaticText(self)
@@ -28,8 +28,8 @@ class Mp3Panel(wx.Panel):
 
         self.SetSizer(mainSizer)
 
-    def onEdit(self, event):
-        self.msgStx.SetLabelText('in onEdit')
+    def OnEdit(self, event):
+        self.msgStx.SetLabelText('in OnEdit')
 
-    def updateMp3Listing(self, folderPath):
+    def UpdateMp3Listing(self, folderPath):
         self.msgStx.SetLabelText(folderPath)
