@@ -8,4 +8,4 @@ mp3tag.py is the main file.
 With this app you can open a folder and see the list of MP3 files.  
 You can edit some ID3 tags of the selected MP3 file.  
 I did this to learn programming GUI python apps.  
-Tutorial URL: [https://realpython.com/python-gui-with-wxpython/]  
+Tutorial URL: https://realpython.com/python-gui-with-wxpython/  
