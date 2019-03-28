@@ -1,6 +1,7 @@
 import eyed3
 import glob
 import wx
+from mp3editdialog import EditDialog
 
 
 class Mp3Panel(wx.Panel):
@@ -20,6 +21,9 @@ class Mp3Panel(wx.Panel):
         self.editBtn.Bind(wx.EVT_BUTTON, self.OnEdit)
         mainSizer.Add(self.editBtn, 0, wx.ALL | wx.CENTER, 5)
 
+        self.onEditStx = wx.StaticText(self)
+        mainSizer.Add(self.onEditStx, 0, wx.ALL | wx.EXPAND, 5)
+
         self.msgStx = wx.StaticText(self)
         mainSizer.Add(self.msgStx, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -33,7 +37,14 @@ class Mp3Panel(wx.Panel):
         self.listCtrl.InsertColumn(3, 'Title', width=140)
 
     def OnEdit(self, event):
-        self.msgStx.SetLabelText('in OnEdit')
+        self.onEditStx.SetLabelText('in OnEdit')
+        selection = self.listCtrl.GetFocusedItem()
+        if selection >= 0:
+            mp3 = self.rowObjDict[selection]
+            dlg = EditDialog(mp3)
+            dlg.ShowModal()
+            self.UpdateMp3Listing(self.currentFolderPath)
+            dlg.Destroy()
 
     def UpdateMp3Listing(self, folderPath):
         self.msgStx.SetLabelText(folderPath)
