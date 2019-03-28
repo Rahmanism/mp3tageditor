@@ -17,7 +17,7 @@ class Mp3Panel(wx.Panel):
         self.Mp3DefaultColumns()
         mainSizer.Add(self.listCtrl, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.editBtn = wx.Button(self, label='Edit')
+        self.editBtn = wx.Button(self, label='Edit\t(F2)')
         self.editBtn.Bind(wx.EVT_BUTTON, self.OnEdit)
         mainSizer.Add(self.editBtn, 0, wx.ALL | wx.CENTER, 5)
 
