@@ -10,13 +10,10 @@ class Mp3Panel(wx.Panel):
         self.rowObjDict = {}
 
         self.listCtrl = wx.ListCtrl(
-            self, size=(-1, 100),
+            self, size=(-1, 300),
             style=wx.LC_REPORT | wx.BORDER_SUNKEN
         )
-        self.listCtrl.InsertColumn(0, 'Track No.', width=140)
-        self.listCtrl.InsertColumn(1, 'Artist', width=140)
-        self.listCtrl.InsertColumn(2, 'Album', width=140)
-        self.listCtrl.InsertColumn(3, 'Title', width=140)
+        self.Mp3DefaultColumns()
         mainSizer.Add(self.listCtrl, 0, wx.ALL | wx.EXPAND, 5)
 
         self.editBtn = wx.Button(self, label='Edit')
@@ -28,8 +25,30 @@ class Mp3Panel(wx.Panel):
 
         self.SetSizer(mainSizer)
 
+    def Mp3DefaultColumns(self):
+        self.listCtrl.ClearAll()
+        self.listCtrl.InsertColumn(0, 'Track No.', width=50)
+        self.listCtrl.InsertColumn(1, 'Artist', width=140)
+        self.listCtrl.InsertColumn(2, 'Album', width=140)
+        self.listCtrl.InsertColumn(3, 'Title', width=140)
+
     def OnEdit(self, event):
         self.msgStx.SetLabelText('in OnEdit')
 
     def UpdateMp3Listing(self, folderPath):
         self.msgStx.SetLabelText(folderPath)
+        self.currentFolderPath = folderPath
+        self.Mp3DefaultColumns()
+
+        mp3s = glob.glob(folderPath + '/*.mp3')
+        mp3Objects = []
+        index = 0
+        for mp3 in mp3s:
+            mp3Object = eyed3.load(mp3)
+            self.listCtrl.InsertItem(index, str(mp3Object.tag.track_num[0]))
+            self.listCtrl.SetItem(index, 1, mp3Object.tag.artist)
+            self.listCtrl.SetItem(index, 2, mp3Object.tag.album)
+            self.listCtrl.SetItem(index, 3, mp3Object.tag.title)
+            mp3Objects.append(mp3Object)
+            self.rowObjDict[index] = mp3Object
+            index += 1
